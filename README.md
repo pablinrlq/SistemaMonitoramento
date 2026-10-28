@@ -1,52 +1,71 @@
-# Sistema de Monitoramento com Alerta de Temperatura
+<div align="center">
 
-## 📌 Sobre o Projeto
-Este projeto é um sistema de monitoramento de temperatura que simula leituras de sensores e gera alertas quando a temperatura atinge valores críticos. Se a temperatura ultrapassar 80°C, um alerta sonoro é ativado, e os dados são armazenados em um banco de dados MySQL.
+# Sistema de Monitoramento de Temperatura
 
-## 🚀 Funcionalidades
-- Tela de login segura com limite de tentativas.
-- Monitoramento contínuo de temperatura com valores gerados aleatoriamente.
-- Registro de temperaturas no banco de dados.
-- Alerta sonoro e visual quando a temperatura atingir 80°C ou mais.
-- Opção de desativar o alerta pressionando a tecla 'U'.
+**Aplicação de console em C# que simula sensores industriais, grava as leituras no MySQL
+e dispara alerta quando a temperatura passa do limite.**
 
-## 🛠️ Tecnologias Utilizadas
-- **C#** (linguagem principal)
-- **MySQL** (banco de dados para armazenar as leituras)
-- **.NET Framework**
+![C#](https://img.shields.io/badge/C%23-512BD4?style=flat-square&logo=dotnet&logoColor=white)
+![.NET 9](https://img.shields.io/badge/.NET_9-512BD4?style=flat-square&logo=dotnet&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
-## 🎮 Como Usar
-1. **Instale os pré-requisitos**:
-   - .NET SDK
-   - MySQL Server
-   - MySQL Connector para .NET
-2. **Configure o Banco de Dados**:
-   - Crie um banco de dados chamado `Monitoramento`.
-   - Crie a tabela com o seguinte comando:
-     ```sql
-     CREATE TABLE Monitoramento (
-         id INT AUTO_INCREMENT PRIMARY KEY,
-         Leitura VARCHAR(255),
-         Data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-     );
-     ```
-3. **Execute o Programa**
-   - Compile e rode o programa no terminal ou no Visual Studio.
-   - Faça login usando:
-     - **Usuário:** `Pablin`
-     - **Senha:** `306090`
-   - Escolha a opção `1` para iniciar os sensores.
-   - Escolha a opção `2` para visualizar os dados no banco.
-   - Pressione `U` para desativar o alerta.
-   - Escolha a opção `3` para sair do programa.
+</div>
 
-## 📂 Estrutura do Código
-```
-📂 SistemaMonitoramento
- ├── Program.cs  # Código principal
- ├── SistemaMonitoramento.cs  # Lógica do monitoramento e alertas
+## Sobre
+
+Pensado para uma linha de produção: os sensores
+mandam leituras o tempo todo e o operador precisa ser avisado na hora em que algo
+esquenta demais. Aqui os sensores são simulados com valores aleatórios.
+
+## Funcionalidades
+
+- Login com limite de 3 tentativas e senha mascarada no terminal
+- Leitura contínua de temperatura
+- Cada leitura salva no MySQL com data e hora
+- Alerta sonoro e visual a partir de **80 °C**, que pode ser silenciado com a tecla `U`
+- Consulta do histórico de leituras direto pelo menu
+
+## Rodando
+
+Precisa do [.NET 9 SDK](https://dotnet.microsoft.com/download) e de um MySQL local.
+
+Crie o banco e a tabela:
+
+```sql
+CREATE DATABASE Monitoramento;
+USE Monitoramento;
+
+CREATE TABLE Monitoramento (
+    id      INT AUTO_INCREMENT PRIMARY KEY,
+    Leitura VARCHAR(255),
+    Data    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
-## 📜 Licença
-Este projeto é de uso livre para aprendizado e melhorias. 🚀
+Ajuste usuário e senha do banco na `connStr` em `Program.cs` e rode:
 
+```bash
+dotnet run
+```
+
+Login de demonstração: usuário `Pablin`, senha `306090`.
+
+| Opção | Ação |
+| :---: | --- |
+| `1` | Inicia os sensores |
+| `2` | Mostra as leituras salvas |
+| `3` | Sai do programa |
+| `U` | Silencia o alerta |
+
+## Estrutura
+
+```
+├── Program.cs                  login, menu, simulação, alerta e acesso ao banco
+└── SensorTemperatura.csproj    projeto .NET 9 (MySql.Data)
+```
+
+---
+
+<div align="center">
+<sub>Feito por <a href="https://github.com/pablinrlq">Pablo Moises</a></sub>
+</div>
